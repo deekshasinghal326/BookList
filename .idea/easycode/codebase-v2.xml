@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/app/src/androidTest/java/com/deelib/weatherapp/ExampleInstrumentedTest.kt;/Users/plobalapps/AndroidStudioProjects/WeatherApp/app/src/main/java/com/deelib/weatherapp/model/ApiResult.kt;/Users/plobalapps/AndroidStudioProjects/WeatherApp/app/src/main/java/com/deelib/weatherapp/model/BooksList.kt;/Users/plobalapps/AndroidStudioProjects/WeatherApp/app/src/main/java/com/deelib/weatherapp/network/ApiService.kt;/Users/plobalapps/AndroidStudioProjects/WeatherApp/app/src/main/java/com/deelib/weatherapp/ui/theme/Color.kt;/Users/plobalapps/AndroidStudioProjects/WeatherApp/app/src/main/java/com/deelib/weatherapp/ui/theme/Theme.kt;/Users/plobalapps/AndroidStudioProjects/WeatherApp/app/src/main/java/com/deelib/weatherapp/ui/theme/Type.kt;/Users/plobalapps/AndroidStudioProjects/WeatherApp/app/src/main/java/com/deelib/weatherapp/MainActivity.kt;/Users/plobalapps/AndroidStudioProjects/WeatherApp/app/src/test/java/com/deelib/weatherapp/ExampleUnitTest.kt;/Users/plobalapps/AndroidStudioProjects/WeatherApp/app/build.gradle.kts;/Users/plobalapps/AndroidStudioProjects/WeatherApp/build.gradle.kts;/Users/plobalapps/AndroidStudioProjects/WeatherApp/settings.gradle.kts" />
+  </component>
+</project>
