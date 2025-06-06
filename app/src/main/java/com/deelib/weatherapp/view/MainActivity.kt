@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -92,14 +93,14 @@ fun HomePage(viewModel: BooksViewModel, supportFragmentManager: FragmentManager)
 
 @Composable
 fun BookList(items: List<Item>, onItemClick: (Item) -> Unit = {}) {
-    LazyColumn(contentPadding = PaddingValues(top = 50.dp)) {
+    LazyColumn(contentPadding = PaddingValues(top = 60.dp)) {
         itemsIndexed(items) { index, item ->
             BookItem(item, index, onItemClick)
             if (index < items.size - 1) {
                 HorizontalDivider(
                     modifier = Modifier.fillMaxWidth(),
-                    thickness = 1.dp,
-                    color = Color.Gray
+                    thickness = 0.5.dp,
+                    color = Color.LightGray
                 )
             }
         }
@@ -112,7 +113,7 @@ fun BookItem(item: Item, index: Int = 0, onItemClick: (Item) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
+            .padding(8.dp)
             .clickable { onItemClick(item) }
     ) {
         val imageUrl = item.volumeInfo.imageLinks.thumbnail.replace("http://", "https://")
@@ -120,12 +121,12 @@ fun BookItem(item: Item, index: Int = 0, onItemClick: (Item) -> Unit) {
             model = imageUrl,
             contentDescription = "book image",
             modifier = Modifier
-                .size(60.dp)
+                .size(70.dp)
         )
 
-        Spacer(modifier = Modifier.width(15.dp))
+        Spacer(modifier = Modifier.width(12.dp))
 
-        Column(modifier = Modifier.weight(1f)) {
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
 
             Text(
                 text = "${index + 1}. ${item.volumeInfo.title}",
