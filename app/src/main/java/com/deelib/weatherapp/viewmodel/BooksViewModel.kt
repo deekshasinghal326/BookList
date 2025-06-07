@@ -2,7 +2,6 @@ package com.deelib.weatherapp.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.deelib.weatherapp.Repository.BookRepo
 import com.deelib.weatherapp.RepositoryHolder
 import com.deelib.weatherapp.model.ApiResult
 import com.deelib.weatherapp.model.Item
