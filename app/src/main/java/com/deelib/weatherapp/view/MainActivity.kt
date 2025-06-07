@@ -24,6 +24,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -65,15 +66,20 @@ class MainActivity : AppCompatActivity() {
 @Composable
 fun HomePage(viewModel: BooksViewModel, supportFragmentManager: FragmentManager) {
     val state by viewModel.booksData.collectAsState()
-    var selectedBook by remember { mutableStateOf<Item?>(null) }
+    val selectedBook by viewModel.selectedBook.collectAsState()
+
+    LaunchedEffect(selectedBook) {
+        if (selectedBook != null) {
+            val detailsFragment = DetailsFragment.newInstance(selectedBook!!)
+            detailsFragment.show(supportFragmentManager, "details")
+            viewModel.clearSelection()
+        }
+    }
 
     when (val result = state) {
         is ApiResult.Success -> {
-            BookList(result.data) { clickedBook ->
-                selectedBook = clickedBook
-                supportFragmentManager.let { fm ->
-                    DetailsFragment.newInstance(clickedBook).show(fm, "DetailsFragment")
-                }
+            BookList(items = result.data) { book ->
+                viewModel.setSelectedBook(book)
             }
 
         }

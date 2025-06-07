@@ -14,7 +14,18 @@ class BooksViewModel : ViewModel() {
     val repo = RepositoryHolder.bookRepo
 
     private val _booksData = MutableStateFlow<ApiResult<List<Item>>>(ApiResult.Loading)
-    val booksData : StateFlow<ApiResult<List<Item>>> = _booksData
+    val booksData: StateFlow<ApiResult<List<Item>>> = _booksData
+
+    private val _selectedBook = MutableStateFlow<Item?>(null)
+    val selectedBook: StateFlow<Item?> = _selectedBook
+
+    fun setSelectedBook(book: Item) {
+        _selectedBook.value = book
+    }
+
+    fun clearSelection() {
+        _selectedBook.value = null
+    }
 
     fun getBooks() {
         viewModelScope.launch {
