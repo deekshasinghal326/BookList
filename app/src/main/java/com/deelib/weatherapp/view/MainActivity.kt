@@ -19,9 +19,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -32,7 +37,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentManager
@@ -52,10 +59,48 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         RepositoryHolder.bookRepo = BookRepo()
-        booksViewModel.getBooks()
         setContent {
             WeatherAppTheme {
-                HomePage(booksViewModel, supportFragmentManager)
+                Column {
+                    SearchBar(booksViewModel)
+                    HomePage(booksViewModel, supportFragmentManager)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun SearchBar(booksViewModel: BooksViewModel) {
+    var keyboardController = LocalSoftwareKeyboardController.current
+    var word by remember { mutableStateOf("") }
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(25.dp), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            OutlinedTextField(
+                modifier = Modifier.weight(1f),
+                value = word,
+                onValueChange = { newText -> word = newText },
+                label = { Text("Search Books e.g. quilting") })
+
+
+            IconButton(onClick = {
+                booksViewModel.getBooks(word)
+                keyboardController?.hide()
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Search"
+                )
             }
         }
     }
@@ -85,15 +130,23 @@ fun HomePage(viewModel: BooksViewModel, supportFragmentManager: FragmentManager)
         is ApiResult.Loading -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
-
             }
+        }
+
+        ApiResult.Ideal -> {
+            Text(
+                text = "Search for any book Series",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp), fontSize = 16.sp, textAlign = TextAlign.Center
+            )
         }
     }
 }
 
 @Composable
 fun BookList(items: List<Item>, onItemClick: (Item) -> Unit = {}) {
-    LazyColumn(contentPadding = PaddingValues(top = 60.dp)) {
+    LazyColumn(contentPadding = PaddingValues(top = 40.dp)) {
         itemsIndexed(items) { index, item ->
             BookItem(item, index, onItemClick)
             if (index < items.size - 1) {
