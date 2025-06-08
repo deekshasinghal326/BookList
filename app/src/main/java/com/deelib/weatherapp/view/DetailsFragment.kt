@@ -2,6 +2,7 @@ package com.deelib.weatherapp.view
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,6 +47,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
+
 class DetailsFragment : BottomSheetDialogFragment() {
     var selectedBook: Item? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,10 +64,7 @@ class DetailsFragment : BottomSheetDialogFragment() {
     ): View? {
         return ComposeView(requireContext()).apply {
             setContent {
-//                Box(modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
                 selectedBook?.let { BookDetails(it, onDismiss = { dismiss() }) }
-
-//                }
             }
         }
     }
@@ -80,21 +80,32 @@ class DetailsFragment : BottomSheetDialogFragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val bottomSheet =
+            dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        bottomSheet?.setBackgroundColor(android.graphics.Color.TRANSPARENT)
+    }
+
     @SuppressLint("UseKtx")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return super.onCreateDialog(savedInstanceState).apply {
-            (this as BottomSheetDialog)?.behavior?.apply {
-                state = BottomSheetBehavior.STATE_EXPANDED
-            }
-        }
+        val dialog = BottomSheetDialog(requireContext(), theme)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog?.behavior?.state = BottomSheetBehavior.STATE_EXPANDED
+        return dialog
+
     }
 
     @Composable
     fun BookDetails(item: Item, onDismiss: () -> Unit) {
-        Box(
+        Surface(
             modifier = Modifier
-                .background(Color(0xFF250001)) // Dark red background
-        ) {
+                .fillMaxWidth()
+                .padding(0.dp),
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            color = Color(0xFF250001)
+        ) // Dark red background
+        {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
