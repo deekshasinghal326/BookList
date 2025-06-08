@@ -29,6 +29,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -80,18 +81,11 @@ class DetailsFragment : BottomSheetDialogFragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val bottomSheet =
-            dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-        bottomSheet?.setBackgroundColor(android.graphics.Color.TRANSPARENT)
-    }
-
     @SuppressLint("UseKtx")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), theme)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
-        dialog?.behavior?.state = BottomSheetBehavior.STATE_EXPANDED
+        dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         return dialog
 
     }
@@ -102,8 +96,7 @@ class DetailsFragment : BottomSheetDialogFragment() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(0.dp),
-            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
-            color = Color(0xFF250001)
+            color = Color(0xFF250001), shape = MaterialTheme.shapes.large
         ) // Dark red background
         {
             Column(
