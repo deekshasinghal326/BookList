@@ -192,7 +192,7 @@ fun BookItem(item: Item, index: Int = 0, onItemClick: (Item) -> Unit) {
                 fontSize = 16.sp, fontWeight = FontWeight.Bold
             )
             Text(
-                text = item.volumeInfo.authors.firstOrNull() ?: "",
+                text = item.volumeInfo.authors?.firstOrNull() ?: "",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Normal
             )
