@@ -138,7 +138,7 @@ class DetailsFragment : BottomSheetDialogFragment() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = item.volumeInfo.authors.firstOrNull() ?: "",
+                        text = item.volumeInfo.authors?.firstOrNull() ?: "",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal,
                         color = Color.White

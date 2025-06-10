@@ -6,8 +6,8 @@ import com.deelib.weatherapp.model.Item
 class RemoteSource {
     val apiService: ApiService = RetrofitClient.apiService
 
-    suspend fun getBooks(): ApiResult<List<Item>> {
-        val response = apiService.getBooks()
+    suspend fun getBooks(str: String = "quilting"): ApiResult<List<Item>> {
+        val response = apiService.getBooks(str)
         try {
             if (response.isSuccessful) {
                 val body = response.body()

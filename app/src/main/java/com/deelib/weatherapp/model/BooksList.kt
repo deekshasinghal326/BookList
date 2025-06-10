@@ -6,7 +6,7 @@ import android.os.Parcelable
 data class BooksList(
     val items: List<Item>,
     val kind: String,
-    val totalItems: Int
+    val totalItems: String
 )
 
 data class Item(
@@ -58,7 +58,7 @@ data class SearchInfo(
 data class VolumeInfo(
     val allowAnonLogging: Boolean,
     val authors: List<String>,
-    val averageRating: Int,
+    val averageRating: String,
     val canonicalVolumeLink: String,
     val categories: List<String>,
     val contentVersion: String,
@@ -74,7 +74,7 @@ data class VolumeInfo(
     val printType: String,
     val publishedDate: String,
     val publisher: String,
-    val ratingsCount: Int,
+    val ratingsCount: String,
     val readingModes: ReadingModes,
     val subtitle: String,
     val title: String
@@ -96,7 +96,7 @@ data class ListPrice(
 )
 
 data class Offer(
-    val finskyOfferType: Int,
+    val finskyOfferType: String,
     val listPrice: ListPriceX,
     val retailPrice: RetailPrice
 )
@@ -107,12 +107,12 @@ data class RetailPriceX(
 )
 
 data class ListPriceX(
-    val amountInMicros: Int,
+    val amountInMicros: String,
     val currencyCode: String
 )
 
 data class RetailPrice(
-    val amountInMicros: Int,
+    val amountInMicros: String,
     val currencyCode: String
 )
 

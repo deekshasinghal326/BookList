@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.flow
 
 class BookRepo() {
     val remoteSource = RemoteSource()
-    fun books(): Flow<ApiResult<List<Item>>> = flow {
+    fun books(searchWord: String): Flow<ApiResult<List<Item>>> = flow {
         emit(ApiResult.Loading)
-        emit(remoteSource.getBooks())
+        emit(remoteSource.getBooks(searchWord))
     }
 
 }
